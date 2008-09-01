@@ -1,0 +1,43 @@
+<h1>Welcome to our online interview,<%= @candidate.name %></h1>
+
+<%= error_messages_for 'interview' %>
+
+<% form_for @interview, :url => candidate_interview_path(:candidate_id=>@candidate,:token=>@interview.token) do |f| -%>
+<p><%= f.label 'education',nil,:class=>'required' %><br/>
+<%= f.select :education, ['High School',"Bachelor", "Master", "Docter", "Others"],{:include_blank=>true} %></p>
+<p>
+	<%= f.label :country, "Country",:class=>'required' %><br/>
+	<%= f.country_select :country,{},{:include_blank=>true} %>
+</p>
+<p>
+	<%= f.label :city, "City", :class=>'required' %><br/>
+	<%= f.text_field :city %>
+</p>
+<p>
+	<%= f.label :time_zone, "Time Zone",:class=>'required' %><br/>	
+	<%= f.time_zone_select :time_zone, TimeZone.all %>
+</p>
+<p>
+	<%= f.label :years_of_working, "Years Of Working",:class=>'required' %><br/>
+	<%= f.select :years_of_working, Interview::YEARS,{:include_blank=>true} %>
+</p>
+<p>
+	<%= f.label :profile, "Profile",:class=>'required' %><br/>
+	<%= f.text_area :profile,:rows=>10,:cols=>40 %>
+</p>
+<p>
+	<%= f.label :working_experiences, "Working Experiences",:class=>'required' %><br/>
+	<%= f.text_area :working_experiences,:rows=>15,:cols=>40 %>
+</p>
+<p>
+	<%= f.label :expected_salary, "Expected Monthly Salary(US $), numbers only",:class=>'required' %><br/>
+	<%= f.text_field :expected_salary %>
+</p>
+<p>
+	<%= f.label :available_within, "Availability", :class=>'required' %><br/>
+	<%= f.select :available_within, Interview::AVAILABILITY,{:include_blank=>true} %>
+</p>
+<p> * Please check your input is complete before you submit, you <b>cannot</b> change this later.</p>
+<p><%= f.submit 'Submit' %></p>
+<% end %>
+

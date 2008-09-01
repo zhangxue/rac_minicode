@@ -1,0 +1,16 @@
+<h1>Invite new candidates</h1>
+<%= flash[:msg] || flash[:error] %>
+<% form_tag(:action=>'create') do  %>
+  <p>
+  	<%= label_tag :name_emails, "Specify multiple candidates"%><br/>
+	<%= text_area_tag :name_emails,@name_emails, :rows=>5,:cols=>60%>
+	<div class="hint">
+	Format of each candidate should be like: FirstName LastName< someone@example.com ><br/>
+	Separate each candidates by ';'	
+	</div>
+  </p>
+  <p>
+  	<%= submit_tag "Invite" %>
+  </p>
+<% end -%>
+

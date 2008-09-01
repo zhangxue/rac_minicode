@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="utf-8">
+
+<head> 
+	<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+	
+	<!--[if IE]>
+		<%= stylesheet_link_tag 'backoffice.screen.ie.css' %>
+	<![endif]-->
+	<!--[if IE 6]>
+		<%= stylesheet_link_tag 'backoffice.screen.ie6.css' %>
+	<![endif]-->
+	<!--[if IE 7]>
+		<%= stylesheet_link_tag 'backoffice.screen.ie7.css' %>
+	<![endif]-->
+	<%= @content_for_styles%>
+	<%= stylesheet_link_tag '/facebox/facebox.css' %>
+	<%= stylesheet_link_tag 'backoffice.screen.css' %>
+	<style type="text/css"><%= @content_for_page_styles %></style>
+	
+	<%= @content_for_page_scripts %>
+	<%= javascript_include_tag '/facebox/jquery.js','/facebox/facebox.js' %>
+	<script type="text/javascript" defer="defer"><%= @content_for_function_scripts%></script>
+	<title>RAC admin</title>
+</head>
+
+<body class="<%= @body_class %>">
+
+	<div id="top">
+		<p id="systemtitle">RAC</p>
+		<% if logged_in? %>
+		<p id="loggedinuser">Hello, <%= current_hr.login %>. <a class="logout" href="/logout">(logout)</a></p>
+		<% end %>
+		<ul id="nav">			
+			<li class="candidates">
+				<a href="<%= candidates_path %>"class="current">Candidates</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="main">
+		<%= yield %>
+	</div>
+
+	<div id="footer" class="clearfix">
+		
+	</div>
+</body>

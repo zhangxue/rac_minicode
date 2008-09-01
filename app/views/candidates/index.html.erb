@@ -1,0 +1,63 @@
+<% content_for :function_scripts do%>
+jQuery(document).ready(function($) {
+  $('a[rel*=facebox]').facebox() 
+})
+<% end%>
+<h1>Candidates <span class="action">(<a href="<%= new_candidate_path %>">Invite new</a>)</span></h1>
+<% form_for(@search, :url=>{:action=>'index'}, :html=>{:id=>'search_form',:method=>'get'}) do |f|%>
+  <table  border="0" cellspacing="5" cellpadding="5">
+	<tr>
+		<td>Name <%= f.text_field :name %></td>
+		<td>Email <%= f.text_field :email %></td>
+		<td>Years of working <%= f.select :years_of_working,Interview::YEARS,{:include_blank=>true} %></td>
+		<td>Country <%= f.country_select :country,{},{:include_blank=>true} %></td>
+		<td>City <%= f.text_field :city %></td>
+		<td>Availability <%= f.select :available_within,Interview::AVAILABILITY,{:include_blank=>true} %></td>
+		<td>Keywords <%= f.text_field :keyword %></td>
+		<td>Interview submitted <%= f.check_box :finished,{}, 1,0 %></td>
+		<td><%= f.submit "Search" %></td>
+	</tr>
+</table>
+<% end -%>
+
+<table border="0" cellspacing="5" cellpadding="5">
+	<thead>
+		<tr>
+			<th><a href="<%= candidates_path(name_order_params) %>">Name</a></th>
+			<th>Email</th>
+			<th><a href="<%= candidates_path(interview_time_order_params) %>">Interview time</a></th>
+			<th>Years of Working</th>
+			<th>Country</th>
+			<th>City</th>
+			<th>Time Zone</th>
+			
+			<th>Available within</th>
+			<th>Details</th>
+		</tr>		
+	</thead>
+	<% @candidates.each do |c| %>
+	<tr>
+		<td><%= c.name %></td>
+		<td><%= c.email %></td>
+		<td><%= c.interview.created_at==c.interview.updated_at ? 'Not Yet Submitted' : c.interview.updated_at.to_s(:db) %></td>
+		<td><%= c.interview.years_of_working %></td>
+		<td><%= c.interview.country %></td>
+		<td><%= c.interview.city %></td>
+		<td><%= c.interview.time_zone %></td>
+		
+		<td><%= c.interview.available_within %></td>
+		<td>
+			<a href="#candidate_details_<%= c.id %>" rel="facebox">Details</a>
+			<div id="candidate_details_<%= c.id %>" style="display:none;">
+				Profile:<br/>
+				<%= simple_format c.interview.profile %><br/>
+				Working Experiences:<br/>
+				<%= simple_format c.interview.working_experiences %><br/>
+			</div>
+		</td>
+		
+	</tr>
+	<% end %>
+</table>
+
+<%= will_paginate @candidates %>

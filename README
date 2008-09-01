@@ -1,0 +1,21 @@
+HR login: admin/123456
+
+Steps to start the app:
+
+1. install rails 2.1 if you haven't already
+2. migrate the databases (rake db:migrate)
+
+3. install required gems (rake gems:install)
+
+If you want to run the tests, you'll need to install the latest rspec 
+plugins. Instructions: http://github.com/dchelimsky/rspec-rails/wikis
+
+You will also need to install the gems.
+
+  rake gems:install RAILS_ENV='test'
+
+4. rake spec to run all specs
+5. mongrel_rails start
+
+
+
